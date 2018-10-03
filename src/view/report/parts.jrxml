@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="4" pageWidth="595" pageHeight="842" columnWidth="138" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6ae08e2e-d57b-4560-97d6-b2ebae27c371">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="data" class="net.sf.jasperreports.engine.JRDataSource">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<field name="part" class="java.lang.String"/>
+	<field name="qty" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="24" splitType="Stretch">
+			<textField>
+				<reportElement x="6" y="1" width="69" height="20" uuid="4e112077-3991-43eb-a136-9542e6a07979"/>
+				<textFieldExpression><![CDATA[$F{part}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="75" y="1" width="59" height="20" uuid="790e999e-6b5c-4190-a2a9-48161e2d7044"/>
+				<textFieldExpression><![CDATA[$F{qty}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report name" columnCount="5" printOrder="Horizontal" pageWidth="595" pageHeight="842" columnWidth="111" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="6e90cdf4-0eff-461b-905f-bc6b50dfeb70">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="client" class="java.lang.String"/>
+	<parameter name="parameter1" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select * from sewing_production where order_num=$P{parameter1}]]>
+	</queryString>
+	<field name="SEW_ID" class="java.lang.Integer"/>
+	<field name="S_TRAVELLER" class="java.lang.String"/>
+	<field name="SLOT" class="java.lang.String"/>
+	<field name="QTY_PER_LOT" class="java.lang.Integer"/>
+	<field name="CREATED" class="java.sql.Timestamp"/>
+	<field name="MODIFIED" class="java.sql.Date"/>
+	<field name="STATUS" class="java.lang.Integer"/>
+	<field name="ID_SEW" class="java.lang.Integer"/>
+	<field name="type_sew" class="java.lang.String"/>
+	<field name="order_num" class="java.lang.String"/>
+	<field name="sewS_id" class="java.lang.Integer"/>
+	<field name="lot_stickers" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="43" splitType="Stretch">
+			<staticText>
+				<reportElement x="153" y="1" width="248" height="23" uuid="56ec2782-ec94-405c-9510-844ee67b6a94"/>
+				<textElement textAlignment="Center">
+					<font size="16" isBold="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[INTERAMERICAN WOVENS S.A.]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="227" y="23" width="100" height="20" uuid="fc258cea-2641-41c0-90c2-98fd086b9ffd"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="true" isItalic="true" isUnderline="true"/>
+				</textElement>
+				<text><![CDATA[BUNDLE TICKET]]></text>
+			</staticText>
+		</band>
+	</title>
+	<pageHeader>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement x="1" y="0" width="48" height="20" uuid="26830628-bdc9-46b5-976e-992696eecd75"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[CLIENT:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="365" y="0" width="78" height="20" uuid="5cd5001d-9a06-4904-8390-a1b87469f78d"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Date Issued:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="443" y="0" width="100" height="20" uuid="e9f4ef9e-9a61-4c23-b524-492539e0e652"/>
+				<textElement>
+					<font size="12" isBold="true" isUnderline="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[new java.util.Date()]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="112" y="29" width="55" height="20" uuid="99c6a6d8-2214-4555-a525-1ce34444f2e2"/>
+				<textElement>
+					<font size="12" isBold="true"/>
+				</textElement>
+				<text><![CDATA[Module:]]></text>
+			</staticText>
+		</band>
+	</pageHeader>
+	<detail>
+		<band height="78">
+			<componentElement>
+				<reportElement x="3" y="10" width="133" height="50" uuid="be984476-1c73-4bff-8edb-7cfa45dd9583"/>
+				<jr:Code128 xmlns:jr="http://jasperreports.sourceforge.net/jasperreports/components" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports/components http://jasperreports.sourceforge.net/xsd/components.xsd" textPosition="bottom">
+					<jr:codeExpression><![CDATA[$F{SLOT}]]></jr:codeExpression>
+				</jr:Code128>
+			</componentElement>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="54" splitType="Stretch">
+			<staticText>
+				<reportElement x="3" y="4" width="81" height="20" uuid="f241dd59-0608-41df-97df-2297f8324ef4"/>
+				<textElement>
+					<font isBold="true"/>
+				</textElement>
+				<text><![CDATA[T.C ISSUED BY:]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+	<summary>
+		<band height="42" splitType="Stretch"/>
+	</summary>
+</jasperReport>
