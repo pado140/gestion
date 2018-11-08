@@ -6,14 +6,12 @@
 
 package connection;
 
-import groovy.sql.Sql;
 import java.sql.CallableStatement;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.sql.SQLType;
 import java.sql.Statement;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -26,7 +24,7 @@ public class ConnectionDb {
     private static ConnectionDb con=null;    
     private String user="iw";
     private String pass="passwordiw";//DESKTOP-V6D55MO
-    private String Url="jdbc:sqlserver://IW2012R2-DC\\SQLEXPRESSIW;databaseName=iwexact";
+    private String Url="jdbc:sqlserver://IW2012R2-DC\\SQLEXPRESSIW;databaseName=wip_archive";
     private Statement state=null;
     private ResultSet resultat;
     private Connection connection=null;
@@ -115,7 +113,6 @@ public class ConnectionDb {
             prepare.closeOnCompletion();
         } catch (SQLException ex) {
             Logger.getLogger(ConnectionDb.class.getName()).log(Level.SEVERE, null, ex);
-            ex.printStackTrace();
             this.setErreur(ex.getMessage());
             instance();
         }

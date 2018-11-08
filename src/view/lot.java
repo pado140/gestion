@@ -13,6 +13,8 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.LinkedHashSet;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JFileChooser;
@@ -50,6 +52,27 @@ public class lot extends javax.swing.JDialog implements Observateurs{
 
     private void save(Object[] ob){
         String requete="INSERT INTO sewing_production (S_TRAVELLER,SLOT,QTY_PER_LOT,type_sew,order_num,lot_stickers) VALUES(?,?,?,?,?,?)";
+        if(!conn.Update(requete, 0, ob))
+            System.err.println(conn.getErreur());
+    }
+    private void savewash(Object[] ob){
+        String requete="INSERT INTO washing (ordernum,stickers,QTY,type,travel_no) VALUES(?,?,?,?,?)";
+        if(!conn.Update(requete, 0, ob))
+            System.err.println(conn.getErreur());
+    }
+    private void saveMatch(Object[] ob){
+        String requete="INSERT INTO matchbook (ordernum,stickers,QTY,travel_no) VALUES(?,?,?,?)";
+        if(!conn.Update(requete, 0, ob))
+            System.err.println(conn.getErreur());
+    }
+    private void savepress(Object[] ob){
+        String requete="INSERT INTO press (ordnum,stickers,QTY,type,travel_no) VALUES(?,?,?,?,?)";
+        if(!conn.Update(requete, 0, ob))
+            System.err.println(conn.getErreur());
+    }
+    
+    private void saveprepack(Object[] ob){
+        String requete="INSERT INTO press (ordernum,stickers,QTY) VALUES(?,?,?)";
         if(!conn.Update(requete, 0, ob))
             System.err.println(conn.getErreur());
     }
@@ -230,12 +253,14 @@ public class lot extends javax.swing.JDialog implements Observateurs{
     @Override
     public void executer(Object... obs) {
         if(obs[0].toString().equals("generate lot")){
+            
             grid_bundle_t.getTableHeader().setFont( new Font( "Arial" , Font.BOLD, 13 ));
                DefaultTableModel tbm = (DefaultTableModel) grid_bundle_t.getModel();
                tbm.setRowCount(0);
             Object[][] data=(Object[][])obs[1];
             for(int y=0;y<data.length;y++){
-            System.out.println(data[y][5].toString());
+            System.out.println(data[y][2].toString());
+            Set<String> op=operations(data[y][1].toString().trim());
             //setVisible(true);
             int line=(int)Math.ceil(Integer.parseInt(data[y][5].toString())/25);
             if(Integer.parseInt(data[y][5].toString())%25>5)
@@ -293,10 +318,18 @@ public class lot extends javax.swing.JDialog implements Observateurs{
                             type="second";
                     }
                       System.out.println(type);  
-                    if(!exists(code))
-                    save(new Object[]{sewtravel,code,qty,type,data[y][6],data[y][8]});
-                
+                    if(!exists(code)){
+                        save(new Object[]{sewtravel,code,qty,type,data[y][6],data[y][8]});
+                    if(op.contains("WASHING"))
+                        savewash(new Object[]{data[y][6],code,qty,type,data[y][8]});
+                    if(op.contains("MATCHBOOK"))
+                        saveMatch(new Object[]{data[y][6],code,qty,data[y][8]});
+                    if(op.contains("PRESS"))
+                        savepress(new Object[]{data[y][6],code,qty,type,data[y][8]});
+                    if(!existReady(code))
+                        saveprepack(new Object[]{data[y][6],code,qty});
                         }
+            } 
             
             //System.out.println(data[5].toString());
             //
@@ -338,5 +371,105 @@ public class lot extends javax.swing.JDialog implements Observateurs{
         }
         
         return false;
+    }
+    
+    private boolean existReady(String stickers){
+        String requete="select count(*) from ready_to_pack where stickers=?";
+        ResultSet rs=conn.select(requete, stickers);
+        
+        try {
+            while(rs.next())
+                return true;
+        } catch (SQLException ex) {
+            Logger.getLogger(lot.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+        return false;
+    }
+    
+    private Set<String> operations(String style){
+        String requete ="select * from style_operations where style=?";
+        ResultSet rs=conn.select(requete, style);
+        Set<String> listop=new LinkedHashSet<>();
+        try {
+            while(rs.next()){
+                listop.add(rs.getString("name").trim());
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(lot.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       return listop; 
+    }
+    
+    private void post_sewn(String style,Object[][] data){
+        Set<String> op=operations(style);
+        if(!op.isEmpty()){
+        for(int y=0;y<data.length;y++){
+            System.out.println(data[y][5].toString());
+            //setVisible(true);
+            int line=(int)Math.ceil(Integer.parseInt(data[y][5].toString())/100);
+            if(Integer.parseInt(data[y][5].toString())%100>5)
+                line+=1;
+            //line+=2;
+            int blank=2;
+            int a=0;
+            // Object[] dat=new Object[7];
+            String type="first";
+            for(int i=0;i<line+blank;i++){
+               Object dat=null;
+               String code="";
+                if(i==line-1){
+                    if(Integer.parseInt(data[y][5].toString())%100>5)
+                    dat=Integer.parseInt(data[y][5].toString())%100;
+                    else{
+                        if(Integer.parseInt(data[y][5].toString())%100>0)
+                            dat=100+Integer.parseInt(data[y][5].toString())%100;
+                        if(Integer.parseInt(data[y][5].toString())%100==0)
+                            dat=100;
+                    }
+                   
+                }else if(i<line-1){
+                     dat=100;
+                    
+                }
+                //int A=alpha.
+                code+=data[y][8];
+                if(i+1<10)
+                    code+="00"+(i+1);
+                else
+                    code+="0"+(i+1);
+                
+                System.out.println("code:"+code);
+                System.out.println("tab_size:"+data[y].length);
+                System.out.println("tab_size:"+data[y][8]);
+                    
+                    int qty=0;
+                    try{
+                        qty=Integer.parseInt(dat.toString());
+                    }catch(NullPointerException e){
+                        
+                    }
+                    String sewtravel=data[y][0].toString().trim()+"."+data[y][1].toString().trim()+"."+data[y][2].toString().trim()+"."+data[y][4].toString().trim();
+                    System.out.println(sewtravel);
+                    System.out.println(exists(code));
+                    if(qty==0){
+                        if(i>=line+(blank-1))
+                            type="second";
+                    }
+                    System.out.println(type);  
+                    if(op.contains("WASHING"))
+                        savewash(new Object[]{data[y][0],code,qty,type,data[y][8]});
+                    if(op.contains("MATCHBOOK"))
+                        saveMatch(new Object[]{data[y][0],code,qty,data[y][8]});
+                    if(op.contains("PRESS"))
+                        savepress(new Object[]{data[y][0],code,qty,type,data[y][8]});
+                
+                        }
+        }
+            //System.out.println(data[5].toString());
+            //
+            //int line=Integer.parseInt(obs[1][5].toString());
+        }
+        
     }
 }

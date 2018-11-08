@@ -81,6 +81,7 @@ private SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");;
                    data[6]=rs.getString("qty");
                    data[7]=rs.getString("mod");
                    data[8]=rs.getString("date_in");
+                   data[9]=rs.getString("order_num");
                    tbm.addRow(data);
                    datalist.add(data);
                }
@@ -264,19 +265,20 @@ private SimpleDateFormat formatter=new SimpleDateFormat("yyyy-MM-dd");;
                 .addContainerGap())
         );
 
+        grid_data.setAutoCreateRowSorter(true);
         grid_data.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "PO", "STYLE", "DESCRIPTION", "COLOR CODE", "COLOR", "SIZE", "QTY", "MODULE", "Date"
+                "PO", "STYLE", "DESCRIPTION", "COLOR CODE", "COLOR", "SIZE", "QTY", "MODULE", "Date", "WORK ORDER"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false, false, false
+                false, false, false, false, false, false, false, false, false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {

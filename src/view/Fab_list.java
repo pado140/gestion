@@ -24,7 +24,8 @@ public class Fab_list extends javax.swing.JDialog implements Observateurs,Observ
     
     private final ConnectionDb conn = ConnectionDb.instance();
     Map<String,Integer> listfab=new HashMap<>();
-    private String label;
+    private String label,src;
+    
     //private 
     
     
@@ -111,11 +112,11 @@ public class Fab_list extends javax.swing.JDialog implements Observateurs,Observ
 
             },
             new String [] {
-                "PO NUMBER"
+                "fabric", "fab_id"
             }
         ) {
             boolean[] canEdit = new boolean [] {
-                false
+                false, false
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -129,6 +130,10 @@ public class Fab_list extends javax.swing.JDialog implements Observateurs,Observ
             }
         });
         jScrollPane1.setViewportView(grid_po);
+        if (grid_po.getColumnModel().getColumnCount() > 0) {
+            grid_po.getColumnModel().getColumn(1).setMinWidth(0);
+            grid_po.getColumnModel().getColumn(1).setMaxWidth(0);
+        }
 
         txt_po.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         txt_po.setText("jTextField1");
@@ -145,7 +150,7 @@ public class Fab_list extends javax.swing.JDialog implements Observateurs,Observ
 
         jLabel3.setFont(new java.awt.Font("Georgia", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(153, 153, 153));
-        jLabel3.setText("Search PO");
+        jLabel3.setText("Search Fabric");
         jLabel3.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -217,7 +222,7 @@ public class Fab_list extends javax.swing.JDialog implements Observateurs,Observ
             System.err.println("po2 :"+Marker_info.po_chosen);*/
             data[1]=grid_po.getModel().getValueAt(selectedrow, 0);
             data[2]=listfab.get(grid_po.getModel().getValueAt(selectedrow, 0).toString());
-            data[0]="fill";
+            data[0]=src;
             alerter(data);
             this.setVisible(false);
         }
@@ -297,6 +302,10 @@ public class Fab_list extends javax.swing.JDialog implements Observateurs,Observ
         
         if(obs[0].toString().equals("load fabric")){
             label=obs[1].toString();
+            src="fill";
+        }
+        if(obs[0].toString().equals("new_style")){
+            src="fill_tab";
         }
     }
 

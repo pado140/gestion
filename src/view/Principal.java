@@ -49,7 +49,7 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
 
     private JInternalFrame summary,bundle_t,sewing_prod,cansew,report_r,wip_r,TRAVEL,packing,packed,packed_mix,nStyle
             ,at_pp,dreport,CONSO,at_soabar,lpnHol,lpnEd,lpnChs,ORD_WEST,workStyle,sewing,daily_soa,daily_pad,updatepo,oponly,delDaily,close,user,ord_gbg,
-            update_production,lpn_gb,lpngbg_convert,sewing_ajust,update_workcenter,unscan,update_mod,tag,fab,lpn_update,upc_scan,sum_mod;
+            update_production,lpn_gb,lpngbg_convert,sewing_ajust,update_workcenter,unscan,update_mod,tag,fab,lpn_update,upc_scan,sum_mod,post,wash,matchbook,press,stylenew;
     public Connection_user auth;
     private lock_fen lockframe;
     public static int user_id=0;
@@ -122,12 +122,16 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
         jMenuBar1 = new javax.swing.JMenuBar();
         WIPMenu = new javax.swing.JMenu();
         wp_only = new javax.swing.JMenuItem();
+        post_sewing = new javax.swing.JMenuItem();
         jSeparator3 = new javax.swing.JPopupMenu.Separator();
         heat = new javax.swing.JMenuItem();
         emb = new javax.swing.JMenuItem();
         sew = new javax.swing.JMenuItem();
         ready = new javax.swing.JMenuItem();
         bundle = new javax.swing.JMenuItem();
+        washing = new javax.swing.JMenuItem();
+        jMenuItem10 = new javax.swing.JMenuItem();
+        pressroom = new javax.swing.JMenuItem();
         pack1 = new javax.swing.JMenuItem();
         psp = new javax.swing.JMenuItem();
         jMenuItem6 = new javax.swing.JMenuItem();
@@ -143,6 +147,7 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
         in_proces_sum = new javax.swing.JMenuItem();
         settup = new javax.swing.JMenu();
         style_manager = new javax.swing.JMenuItem();
+        jMenuItem11 = new javax.swing.JMenuItem();
         Consolidation = new javax.swing.JMenu();
         createbox = new javax.swing.JMenuItem();
         jMenuItem3 = new javax.swing.JMenuItem();
@@ -279,6 +284,15 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
             }
         });
         WIPMenu.add(wp_only);
+
+        post_sewing.setText("Post Sewing");
+        post_sewing.setName("postSewing"); // NOI18N
+        post_sewing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                post_sewingActionPerformed(evt);
+            }
+        });
+        WIPMenu.add(post_sewing);
         WIPMenu.add(jSeparator3);
 
         heat.setAccelerator(javax.swing.KeyStroke.getKeyStroke(java.awt.event.KeyEvent.VK_F3, 0));
@@ -329,6 +343,33 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
             }
         });
         WIPMenu.add(bundle);
+
+        washing.setText("transfer_to_wash");
+        washing.setName("washing"); // NOI18N
+        washing.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                washingActionPerformed(evt);
+            }
+        });
+        WIPMenu.add(washing);
+
+        jMenuItem10.setText("transfer_to_matchbook");
+        jMenuItem10.setName("matchbook"); // NOI18N
+        jMenuItem10.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem10ActionPerformed(evt);
+            }
+        });
+        WIPMenu.add(jMenuItem10);
+
+        pressroom.setText("transfer to press");
+        pressroom.setName("pressroom"); // NOI18N
+        pressroom.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pressroomActionPerformed(evt);
+            }
+        });
+        WIPMenu.add(pressroom);
 
         pack1.setText("Packed");
         pack1.setName("Packed"); // NOI18N
@@ -437,6 +478,15 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
             }
         });
         settup.add(style_manager);
+
+        jMenuItem11.setText("style new");
+        jMenuItem11.setName("initStyle"); // NOI18N
+        jMenuItem11.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMenuItem11ActionPerformed(evt);
+            }
+        });
+        settup.add(jMenuItem11);
 
         Consolidation.setText("CONSOLIDATION");
         Consolidation.setName("Consolidation"); // NOI18N
@@ -1683,6 +1733,110 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
         sum_mod.toFront();
     }//GEN-LAST:event_in_proces_sumActionPerformed
 
+    private void post_sewingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_post_sewingActionPerformed
+        // TODO add your handling code here:
+        if(post==null|| post.isClosed()){
+            post=new post_sewing_operation();
+            post.setVisible(true);
+            label_principal.add(post);
+            
+            System.out.println("new");
+        }
+        if(post.isIcon()){
+            try {
+                post.setIcon(false);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println("old");
+        }
+        post.toFront();
+    }//GEN-LAST:event_post_sewingActionPerformed
+
+    private void washingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_washingActionPerformed
+        // TODO add your handling code here:
+        if(wash==null|| wash.isClosed()){
+            wash=new Washing();
+            wash.setVisible(true);
+            label_principal.add(wash);
+            
+            System.out.println("new");
+        }
+        if(wash.isIcon()){
+            try {
+                wash.setIcon(false);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println("old");
+        }
+        wash.toFront();
+    }//GEN-LAST:event_washingActionPerformed
+
+    private void jMenuItem10ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem10ActionPerformed
+        // TODO add your handling code here:
+        if(matchbook==null|| matchbook.isClosed()){
+            matchbook=new matchbook();
+            matchbook.setVisible(true);
+            label_principal.add(matchbook);
+            
+            System.out.println("new");
+        }
+        if(matchbook.isIcon()){
+            try {
+                matchbook.setIcon(false);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println("old");
+        }
+        matchbook.toFront();
+    }//GEN-LAST:event_jMenuItem10ActionPerformed
+
+    private void pressroomActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pressroomActionPerformed
+        // TODO add your handling code here:
+        if(press==null|| press.isClosed()){
+            press=new press();
+            press.setVisible(true);
+            label_principal.add(press);
+            
+            System.out.println("new");
+        }
+        if(press.isIcon()){
+            try {
+                press.setIcon(false);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println("old");
+        }
+        press.toFront();
+    }//GEN-LAST:event_pressroomActionPerformed
+
+    private void jMenuItem11ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItem11ActionPerformed
+        if(stylenew==null|| stylenew.isClosed()){
+            stylenew=new initStyle();
+            stylenew.setVisible(true);
+            label_principal.add(stylenew);
+            
+            System.out.println("new");
+        }
+        if(stylenew.isIcon()){
+            try {
+                stylenew.setIcon(false);
+            } catch (PropertyVetoException ex) {
+                Logger.getLogger(Principal.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            System.out.println("old");
+        }
+        stylenew.toFront();
+    }//GEN-LAST:event_jMenuItem11ActionPerformed
+
     private void init(){
         connecter=false;
         if(time==null)
@@ -1813,6 +1967,8 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
     private javax.swing.JMenu jMenu1;
     private javax.swing.JMenuBar jMenuBar1;
     private javax.swing.JMenuItem jMenuItem1;
+    private javax.swing.JMenuItem jMenuItem10;
+    private javax.swing.JMenuItem jMenuItem11;
     private javax.swing.JMenuItem jMenuItem19;
     private javax.swing.JMenuItem jMenuItem2;
     private javax.swing.JMenuItem jMenuItem20;
@@ -1835,6 +1991,8 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
     private javax.swing.JMenuItem lpn_gbg;
     private javax.swing.JMenuItem pack;
     private javax.swing.JMenuItem pack1;
+    private javax.swing.JMenuItem post_sewing;
+    private javax.swing.JMenuItem pressroom;
     private javax.swing.JMenuItem prod_ajust_sew;
     private javax.swing.JMenuItem profil;
     private javax.swing.JMenuItem psp;
@@ -1859,6 +2017,7 @@ public class Principal extends javax.swing.JFrame implements Observateurs,Observ
     private javax.swing.JMenuItem upload_eds_order;
     private javax.swing.JMenuItem upload_wcs_order;
     private javax.swing.JMenuItem user_manager;
+    private javax.swing.JMenuItem washing;
     private javax.swing.JMenu wcs_upload_manager;
     private javax.swing.JMenuItem wip;
     private javax.swing.JMenuItem wp_only;

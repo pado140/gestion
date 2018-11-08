@@ -8,7 +8,6 @@ package view;
 import connection.ConnectionDb;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -23,12 +22,14 @@ public class update_production extends javax.swing.JInternalFrame {
 private final ConnectionDb conn = ConnectionDb.instance();
 private DefaultTableModel tbm;
 private Object [][] data=null;
+private String sticker,trvel,order,lot;
     /**
      * Creates new form update_production
      */
     public update_production() {
         initComponents();
         init();
+        gen.setEnabled(false);
     }
 
     /**
@@ -45,6 +46,7 @@ private Object [][] data=null;
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
+        gen = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         scrollpane = new javax.swing.JScrollPane();
         grid_data = new javax.swing.JTable();
@@ -68,6 +70,13 @@ private Object [][] data=null;
             }
         });
 
+        gen.setText("generate sticker");
+        gen.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                genActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -77,15 +86,22 @@ private Object [][] data=null;
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 241, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(454, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 315, Short.MAX_VALUE)
+                .addComponent(gen)
+                .addGap(28, 28, 28))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(37, 37, 37)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(gen, javax.swing.GroupLayout.PREFERRED_SIZE, 67, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 41, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(22, Short.MAX_VALUE))
         );
 
@@ -237,6 +253,20 @@ private Object [][] data=null;
            }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void genActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_genActionPerformed
+        // TODO add your handling code here:
+        if(data.length<10)
+                    lot+="000"+(data.length+2);
+                else
+                    lot+="00"+(data.length+2);
+        String requete="INSERT INTO sewing_production (S_TRAVELLER,SLOT,QTY_PER_LOT,type_sew,order_num,lot_stickers) VALUES(?,?,0,'first',?,?)";
+        if(!conn.Update(requete, 0, trvel,lot,order,sticker))
+            System.err.println(conn.getErreur());
+        else{
+            get(sticker);
+        }
+    }//GEN-LAST:event_genActionPerformed
+
     private Object[] value(JTable a,int ligne){
         Object[] ob=new Object[a.getColumnCount()];
         for(int i=0;i<a.getColumnCount();i++){
@@ -246,11 +276,16 @@ private Object [][] data=null;
     }
     
     private void get(String code){
-        code=code.substring(0,8);
+        code=code.trim();
         //tbm.setRowCount(0);
+        sticker="";
+        lot="";
+        order="";
+        trvel="";
+        gen.setEnabled(false);
         System.out.println(code);
         data=null;
-        String requete="select * from sewing_production where order_num=?";
+        String requete="select * from sewing_production where lot_stickers=?";
         ResultSet rs=conn.select(requete, code);
         try {
             rs.last();
@@ -266,6 +301,8 @@ private Object [][] data=null;
                 data[i][5]=rs.getString("type_sew");
                data[i][6]=rs.getInt("STATUS")==1?"Scanned":rs.getInt("STATUS")==2?"Invalid":"empty";
                data[i][7]=rs.getInt("qty_per_lot");
+               
+               
                i++;
                 }
                 //((DefaultTableModel)grid_data.getModel())
@@ -273,6 +310,11 @@ private Object [][] data=null;
             Logger.getLogger(Heat_pad.class.getName()).log(Level.SEVERE, null, ex);
         }
         if(data!=null && data.length!=0){
+            sticker=code;
+        lot=sticker;
+        order=code.substring(0, 8);
+        trvel=data[0][2].toString();
+            gen.setEnabled(true);
         grid_data.setModel(new javax.swing.table.DefaultTableModel(
             data,
                 new String [] {
@@ -311,6 +353,7 @@ private Object [][] data=null;
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel empty_label;
+    private javax.swing.JButton gen;
     private javax.swing.JTable grid_data;
     private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;

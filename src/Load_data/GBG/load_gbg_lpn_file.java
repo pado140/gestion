@@ -7,7 +7,6 @@ package Load_data.GBG;
 
 import Load_data.loadFrame;
 import connection.ConnectionDb;
-import java.awt.Color;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -193,22 +192,22 @@ public class load_gbg_lpn_file extends javax.swing.JInternalFrame {
             Object id_mix="NULL";
             int lpn_col=6;
             String lpnval="";
+            Set<String> lpnlist=new HashSet<>();
             boolean mix=false,isold=true;
             if(grid_data.getColumnName(6).equals("POLYBAG LPN")){
                 lpn_col=7;
                 isold=false;
             }
+            String initmix=grid_data.getValueAt(0, 7).toString().trim();
             for(int i=0;i<grid_data.getRowCount();i++){
                 if(grid_data.getValueAt(i, 0)!=null){
                     lpn=grid_data.getValueAt(i, 7).toString().trim();
-                    mix=grid_data.getValueAt(i, 8).equals("true")?true:false;
+                    mix=grid_data.getValueAt(i, 8).equals("true")?true:(grid_data.getValueAt(i, 8).equals("TRUE")?true:false);
                     System.out.println("ddd"+mix);
                     if(mix){
-                        String initmix=grid_data.getValueAt(i, 7).toString().trim();
-                        if(! initmix.equals(lpn)){
                         
                         id_mix=saveLpnmix(lpn);
-                        }
+                        
                     }
                     po=grid_data.getValueAt(i, 0).toString().trim();
                     style=grid_data.getValueAt(i, 1).toString().trim();
@@ -219,20 +218,20 @@ public class load_gbg_lpn_file extends javax.swing.JInternalFrame {
                     int total=Integer.parseInt(grid_data.getValueAt(i, 9).toString());
                     Pattern p=Pattern.compile("[A-Z]");
                     //if()
-                    ord=order(po,style+"."+color_code+"."+size);
-                    //String stickers
+                    ord=order(po,style.trim()+"."+color_code+"."+size);
+                    
                     if(ord!=null){
                         int idlpn=0;
                         if(mix){
                             idlpn=exist(details); 
-                            System.out.println(details);
+                            //System.out.println(details+" "+idlpn);
                             
                         }else{
                             idlpn=exist(lpn);
-                            System.out.println(lpn);
+                            //System.out.println(lpn);
                            
                         }
-                            
+                          //System.out.println("idlpn:"+idlpn);  
                         lpnval=lpn;
                         int index=lpnno(ord)+1;
                             String stickers=ord+qty+index;
@@ -242,7 +241,7 @@ public class load_gbg_lpn_file extends javax.swing.JInternalFrame {
                             System.out.println(details);
                             if(mix)
                                 lpnval=details;
-                            System.out.println(lpnval);
+                            System.out.println(id_mix);
                             if(!saveLpn(ord, lpnval, stickers, qty,id_mix,mix))
                                erreur.add(conn.getErreur());
                             
@@ -413,6 +412,7 @@ public class load_gbg_lpn_file extends javax.swing.JInternalFrame {
     }
     private int saveLpnmix(String lpn){
         if(mix_exist(lpn)==0){
+            System.out.println("lpn:"+lpn);
         String requete="INSERT INTO mix_BOX(lpn_mix) VALUES (?)";
         if(conn.Update(requete, 1, lpn))
             return conn.getLast();

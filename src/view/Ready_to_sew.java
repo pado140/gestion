@@ -500,7 +500,7 @@ public class Ready_to_sew extends javax.swing.JInternalFrame implements Observe{
 
     private void formInternalFrameActivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameActivated
         // TODO add your handling code here:
-        //listData();
+        listData();
     }//GEN-LAST:event_formInternalFrameActivated
 
     private void formInternalFrameDeactivated(javax.swing.event.InternalFrameEvent evt) {//GEN-FIRST:event_formInternalFrameDeactivated

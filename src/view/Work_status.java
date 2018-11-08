@@ -90,8 +90,15 @@ public class Work_status extends javax.swing.JInternalFrame {
                 System.out.println("Column index selected:"+col+ " "+name);
                 
             }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+                System.err.println("Ok"); //To change body of generated methods, choose Tools | Templates.
+            }
+            
             
         });
+        
         init();
          
         
@@ -804,7 +811,7 @@ public class Work_status extends javax.swing.JInternalFrame {
         DefaultTableModel tbm = (DefaultTableModel) grid_data.getModel();
         tbm.setRowCount(0);
         for(Object[] o:listeData){
-            if(o[2].toString().toLowerCase().contains(potxt.trim().toLowerCase())&& o[3].toString().contains(style.trim().toLowerCase())&&
+            if(o[2].toString().toLowerCase().contains(potxt.trim().toLowerCase())&& o[3].toString().toLowerCase().contains(style.trim().toLowerCase())&&
                     (o[5].toString().toLowerCase().contains(col.trim())||o[4].toString().toLowerCase().contains(col.trim()))&&
                     o[6].toString().toLowerCase().contains(size.trim())&&o[1].toString().toLowerCase().contains(client)&&o[7].toString().toLowerCase().contains(sku)
                )

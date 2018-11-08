@@ -15,7 +15,6 @@ import java.awt.event.MouseEvent;
 import java.io.File;
 import java.net.URL;
 import java.nio.file.Files;
-import java.nio.file.Path;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -27,15 +26,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
-import net.sf.jasperreports.engine.JasperCompileManager;
 import net.sf.jasperreports.engine.JasperExportManager;
 import net.sf.jasperreports.engine.JasperFillManager;
 import net.sf.jasperreports.engine.JasperPrint;
 import net.sf.jasperreports.engine.JasperReport;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
-import net.sf.jasperreports.engine.design.JasperDesign;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.engine.xml.JRXmlLoader;
 import view.report.Data;
 import view.report.cutpart;
 import view.report.sewing;
@@ -48,15 +44,30 @@ public class At_soabar extends javax.swing.JInternalFrame {
 private final ConnectionDb conn = ConnectionDb.instance();
 private DefaultTableModel tbm;
 private Set<Object[]> listedata;
-private Map<String , Integer> padprint;
+private Map<String , Integer> padprint,Styles;
     /**
      * Creates new form Confirm_at_soabar
      */
     public At_soabar() {
         initComponents();
+        initStyle();
         init();
+        GRID_DATA.setDragEnabled(false);
+        System.err.println(GRID_DATA.getColumn("SIZE").getModelIndex());
     }
 
+    private void initStyle(){
+        String requete="select style,proto_id from proto_style";
+        ResultSet rs=conn.select(requete);
+        Styles=new HashMap<>();
+        try {
+            while(rs.next()){
+                Styles.put(rs.getString("style"), rs.getInt("proto_id"));
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(Ready_to_sew.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -282,18 +293,28 @@ private Map<String , Integer> padprint;
             Object[] data=new Object[8];
         for(int i=0;i<GRID_DATA.getSelectedRowCount();i++){
             int ligne=GRID_DATA.getSelectedRows()[i];
-            String sewing=GRID_DATA.getValueAt(ligne, 6).toString().trim();
-            String stickers=sewing+GRID_DATA.getValueAt(ligne, 7).toString().trim();
-            String s_travel=GRID_DATA.getValueAt(ligne, 0).toString().trim();
-            Object qty=GRID_DATA.getValueAt(ligne, 5);
-            data[0]=GRID_DATA.getValueAt(ligne, 0);
-                data[1]=GRID_DATA.getValueAt(ligne, 1);
-                data[2]=GRID_DATA.getValueAt(ligne, 2);
-                data[3]=GRID_DATA.getValueAt(ligne, 3);
-                data[4]=GRID_DATA.getValueAt(ligne, 4);
-                data[5]=GRID_DATA.getValueAt(ligne, 5);
-                data[6]=GRID_DATA.getValueAt(ligne, 6);
-                data[7]=GRID_DATA.getValueAt(ligne, 7);
+            int sew_pos=GRID_DATA.getColumn("SEWING TRAVELLER").getModelIndex();
+            int po_pos=GRID_DATA.getColumn("PO").getModelIndex();
+            int size_pos=GRID_DATA.getColumn("SIZE").getModelIndex();
+            int style_pos=GRID_DATA.getColumn("STYLE").getModelIndex();
+            int color_pos=GRID_DATA.getColumn("COLOR").getModelIndex();
+            int stickers_pos=GRID_DATA.getColumn("SEWING CARD").getModelIndex();
+            int qty_pos=GRID_DATA.getColumn("QTY").getModelIndex();
+            int no_pos=GRID_DATA.getColumn("SEWING NO").getModelIndex();
+            
+            
+            String sewing=GRID_DATA.getValueAt(ligne, stickers_pos).toString().trim();
+            String stickers=sewing+GRID_DATA.getValueAt(ligne, no_pos).toString().trim();
+            String s_travel=GRID_DATA.getValueAt(ligne, sew_pos).toString().trim();
+            Object qty=GRID_DATA.getValueAt(ligne, qty_pos);
+            data[0]=GRID_DATA.getValueAt(ligne, sew_pos);
+                data[1]=GRID_DATA.getValueAt(ligne, po_pos);
+                data[2]=GRID_DATA.getValueAt(ligne, style_pos);
+                data[3]=GRID_DATA.getValueAt(ligne, color_pos);
+                data[4]=GRID_DATA.getValueAt(ligne, size_pos);
+                data[5]=GRID_DATA.getValueAt(ligne, qty_pos);
+                data[6]=GRID_DATA.getValueAt(ligne, stickers_pos);
+                data[7]=GRID_DATA.getValueAt(ligne, no_pos);
                 
                 String color=data[3].toString().trim();
                 
@@ -432,14 +453,13 @@ private Map<String , Integer> padprint;
     }
     
     private Map<String ,Integer[]> at_pad(){
-        String requete="Select po,sku, qty,nb  from pad_printed";
+        String requete="Select [order], qty,nb  from pad_printed";
         Map<String,Integer[]> sew=new HashMap<>();
         ResultSet rs=conn.select(requete);
         System.out.println("ok");
         try {
             while(rs.next()){
-                String order=rs.getString("po").trim();
-                order+="."+rs.getString("sku").trim();
+                String order=rs.getString("order").trim();
                 sew.put(order, new Integer[]{rs.getInt("qty"),rs.getInt("nb")});
                        
             }
@@ -462,12 +482,12 @@ private Map<String , Integer> padprint;
             if(!rs.getString("status").equals("5")){
             String color,Code;
             
-               Code=rs.getString("color_code").trim();
+               Code=rs.getString("sku").trim();
+               Code=Code.substring(Code.indexOf(".")+1,Code.lastIndexOf("."));
                color=Code+"-"+rs.getString("color").trim();
                int pad=0,acc=0,nb=0;
                try{
-                   String order=rs.getString("po").trim();
-                order+="."+rs.getString("sku").trim();
+                   String order=rs.getString("order_num").trim();
                    nb=padprinted.get(order)[1];
                    acc=padprinted.get(order)[0];
                    
@@ -487,7 +507,7 @@ private Map<String , Integer> padprint;
                if(rs.getInt("qty")-acc>0){
                    System.out.println("nb="+nb+", acc="+acc);
                    Object[] data=new Object[13];
-                   data[0]=rs.getString("sewing_traveller").trim();
+                   data[0]=rs.getString("order_num").trim();
                    data[1]=rs.getString("po").trim();
                    data[2]=rs.getString("style").trim();
                    data[3]=color;
@@ -499,7 +519,7 @@ private Map<String , Integer> padprint;
                    data[9]=rs.getString("brand");
                    data[10]=rs.getInt("pieces");
                    data[11]=rs.getInt("planned");
-                   data[12]=rs.getInt("proto_id");
+                   data[12]=Styles.get(rs.getString("style").trim());
                    listedata.add(data);
                    tbm.addRow(data);
                }
@@ -534,7 +554,7 @@ private Map<String , Integer> padprint;
             String requ="update soabar set date_out=getDate() where date_out is null and order_num=?";
             String requete1="insert into tRANSAC(TRANSACT,ITEM,QTY,ACT_TYPE,ACT_NAME,sub_item,[DATE_T],User_id) values ('At Pad print',?,?,1,'Soa Bar'"
                     + ",?,getdate(),?)";         
-        
+        s_travel=pot+"."+stylet+"."+color_code+"."+size;
         if(client.trim().equals("EDG")){
             pot+="("+cut(code.trim().substring(0, code.trim().length()-1))+")";
         }
