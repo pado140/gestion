@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="611.0" prefWidth="930.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controller.AchatsController">
+   <children>
+      <AnchorPane layoutX="19.0" layoutY="10.0" pickOnBounds="false" prefHeight="111.0" prefWidth="1095.0" style="-fx-background-color: #215488;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="26.0" layoutY="39.0" prefHeight="39.0" prefWidth="263.0" text="Rapport des Achats" textFill="WHITE">
+               <font>
+                  <Font name="Arial Black" size="24.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="533.0" layoutY="46.0" onAction="#export" style="-fx-background-color: #fff;" text="Export excel" textFill="#00000074" underline="true" AnchorPane.rightAnchor="14.0">
+               <graphic>
+                  <FontAwesomeIconView fill="#0000006d" glyphName="UPLOAD" />
+               </graphic>
+            </JFXButton>
+            <FontAwesomeIconView fill="#bab6b674" glyphName="SHOPPING_CART" layoutX="289.0" layoutY="94.0" size="100" />
+         </children>
+      </AnchorPane>
+      <TableView fx:id="tab_vente" layoutX="10.0" layoutY="121.0" prefHeight="440.0" prefWidth="191.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="49.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="409.0" AnchorPane.topAnchor="111.0">
+         <columns>
+            <TableColumn fx:id="datevente" prefWidth="75.0" text="Date" />
+            <TableColumn fx:id="code" prefWidth="75.0" text="code transaction" />
+            <TableColumn fx:id="total" prefWidth="75.0" text="Total" />
+            <TableColumn fx:id="user" prefWidth="75.0" text="User" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <AnchorPane layoutX="11.0" layoutY="396.0" prefHeight="51.0" prefWidth="919.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label layoutX="9.0" layoutY="24.0" text="Total:" AnchorPane.leftAnchor="50.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label layoutX="855.0" layoutY="6.0" text="Montant:" AnchorPane.rightAnchor="450.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+            <Label fx:id="mtnt" layoutX="889.0" layoutY="26.0" text="0.00" AnchorPane.rightAnchor="450.0">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <AnchorPane layoutX="656.0" layoutY="121.0" prefHeight="440.0" prefWidth="413.0" AnchorPane.bottomAnchor="49.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="111.0">
+         <children>
+            <Label layoutX="175.0" layoutY="14.0" text="Details" textAlignment="CENTER" textFill="#175cdd" underline="true">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label layoutX="75.0" layoutY="41.0" prefHeight="27.0" prefWidth="95.0" text="Commande no:" />
+            <Label fx:id="com" layoutX="243.0" layoutY="41.0" prefHeight="27.0" prefWidth="95.0" />
+            <Label layoutX="75.0" layoutY="68.0" prefHeight="27.0" prefWidth="95.0" text="Date" />
+            <Label fx:id="dte" layoutX="243.0" layoutY="68.0" prefHeight="27.0" prefWidth="95.0" />
+            <TableView fx:id="table" layoutX="11.0" layoutY="102.0" prefHeight="330.0" prefWidth="386.0" tableMenuButtonVisible="true">
+               <columns>
+                  <TableColumn fx:id="article" prefWidth="75.0" text="Article" />
+                  <TableColumn fx:id="qty" prefWidth="75.0" text="Quantite" />
+                  <TableColumn fx:id="prix" prefWidth="75.0" text="Prix" />
+                  <TableColumn fx:id="tot" prefWidth="75.0" text="total" />
+               </columns>
+               <columnResizePolicy>
+                  <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+               </columnResizePolicy>
+            </TableView>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

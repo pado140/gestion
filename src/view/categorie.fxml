@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="248.0" prefWidth="455.0" style="-fx-effect: innershadow(two-pass-box, #7891B1,10,0.3,1,1);" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.CategorieController">
+   <children>
+      <AnchorPane prefHeight="106.0" prefWidth="452.0" style="-fx-background-color: #00234F; -fx-border-color: white;">
+         <children>
+            <Label layoutX="78.0" layoutY="28.0" prefHeight="50.0" prefWidth="297.0" text="Nouvelle Categorie" textFill="WHITE">
+               <font>
+                  <Font size="34.0" />
+               </font>
+            </Label>
+            <JFXButton layoutX="423.0" layoutY="-1.0" onAction="#close" style="-fx-background-color: red;" text="X" textFill="#f8f5f5">
+               <font>
+                  <Font name="System Bold" size="14.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </AnchorPane>
+      <JFXButton layoutX="127.0" layoutY="200.0" onAction="#save" style="-fx-background-color: #00234F;" text="Save" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="37.0" layoutY="137.0" prefHeight="30.0" prefWidth="90.0" text="Categorie:" textFill="#00234f">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="name_field" layoutX="149.0" layoutY="134.0" prefHeight="25.0" prefWidth="232.0" />
+      <JFXButton layoutX="243.0" layoutY="200.0" onAction="#close" style="-fx-background-color: red;" text="Cancel" textFill="WHITE">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+   </children>
+</AnchorPane>

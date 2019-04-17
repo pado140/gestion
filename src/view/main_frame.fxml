@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane fx:id="main" prefHeight="637.0" prefWidth="1018.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.mainController">
+   <left>
+      <VBox fx:id="left_pane" prefHeight="622.0" prefWidth="182.0" style="-fx-background-color: #0e407a;" BorderPane.alignment="CENTER">
+         <children>
+            <Pane prefHeight="142.0" prefWidth="182.0">
+               <children>
+                  <Hyperlink layoutX="24.0" layoutY="105.0" text="Modifier votre profil" textFill="#eeeeee" />
+                  <Pane cache="true" layoutX="34.0" layoutY="5.0" prefHeight="100.0" prefWidth="100.0" style="-fx-border-color: white; -fx-border-radius: 100; -fx-border-width: 3;">
+                     <children>
+                        <ImageView fx:id="user_image" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </Pane>
+               </children>
+            </Pane>
+            <JFXButton fx:id="btnAccueil" alignment="BASELINE_LEFT" onAction="#switchHome" prefHeight="44.0" prefWidth="182.0" text="Accueil" textFill="#b5b5bf">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="HOME" glyphStyle="solid" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btnProds" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="76.0" onAction="#switchProd" prefHeight="44.0" prefWidth="183.0" text="Produit" textFill="#b5b5bf">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="QRCODE" glyphStyle="solid" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="supplier" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="196.0" onAction="#switchStock" prefHeight="44.0" prefWidth="183.0" text="Stock" textFill="#b5b5bf">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="CUBES" glyphStyle="solid" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn_achat" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="240.0" onAction="#switchAchatProduit" prefHeight="44.0" prefWidth="183.0" text="Achats" textFill="#b5b5bf">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="SHOPPING_CART" glyphStyle="solid" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn_supplier" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="284.0" onAction="#switchSup" prefHeight="44.0" prefWidth="183.0" text="Suppliers" textFill="#b5b5bf">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="CONTACTS" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn_ventes" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="328.0" onAction="#switchVentes" prefHeight="44.0" prefWidth="183.0" text="Ventes" textFill="#b5b5bf">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn_cust" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="372.0" onAction="#switchCust" prefHeight="44.0" prefWidth="183.0" text="Customers" textFill="#b5b5bf">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="CONTACTS" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <Label alignment="CENTER" prefHeight="34.0" prefWidth="182.0" text="Rapports" textFill="#ffffff5c" underline="true">
+               <VBox.margin>
+                  <Insets top="70.0" />
+               </VBox.margin>
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="btn_report_vente" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="416.0" onAction="#switch_report_vente" prefHeight="44.0" prefWidth="183.0" text="Rapport de vente" textFill="#b5b5bf">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn_report_vente1" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="564.0" onAction="#switch_report_achat" prefHeight="54.0" prefWidth="182.0" text="Rapport Sur les achats" textAlignment="CENTER" textFill="#b5b5bf" wrapText="true">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <Label alignment="CENTER" layoutX="10.0" layoutY="517.0" prefHeight="34.0" prefWidth="182.0" text="Users" textFill="#ffffff5c" underline="true">
+               <font>
+                  <Font name="System Bold" size="23.0" />
+               </font>
+               <VBox.margin>
+                  <Insets top="40.0" />
+               </VBox.margin>
+            </Label>
+            <JFXButton fx:id="btn_report_vente2" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="551.0" onAction="#switch_report_vente" prefHeight="44.0" prefWidth="183.0" text="Users" textFill="#b5b5bf">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+            <JFXButton fx:id="btn_report_vente11" alignment="BASELINE_LEFT" layoutX="10.0" layoutY="594.0" onAction="#switch_report_achat" prefHeight="54.0" prefWidth="182.0" text="Roles" textAlignment="CENTER" textFill="#b5b5bf" wrapText="true">
+               <graphic>
+                  <FontAwesomeIconView fill="#b5b5bf" glyphName="" size="30" wrappingWidth="43.0" />
+               </graphic>
+               <font>
+                  <Font size="15.0" />
+               </font>
+            </JFXButton>
+         </children>
+      </VBox>
+   </left>
+   <center>
+      <AnchorPane fx:id="content" prefHeight="540.0" prefWidth="629.0" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>

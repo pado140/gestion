@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="313.0" prefWidth="477.0" style="-fx-background-color: aqua;" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="controller.RemiseController">
+   <children>
+      <AnchorPane layoutY="6.0" prefHeight="82.0" prefWidth="477.0" style="-fx-background-color: black;" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label layoutX="14.0" layoutY="28.0" prefHeight="37.0" prefWidth="162.0" text="Confirmation!" textFill="AQUA">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="326.0" layoutY="14.0" text="Total" textFill="#27c0d98a">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+            <Label fx:id="montant" layoutX="304.0" layoutY="41.0" prefHeight="0.0" prefWidth="142.0" text="Label" textFill="#00facd">
+               <font>
+                  <Font name="System Bold" size="18.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+      <Label layoutX="74.0" layoutY="156.0" text="Remis:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="remis" layoutX="74.0" layoutY="176.0" onKeyReleased="#calcul" prefHeight="25.0" prefWidth="132.0" promptText="0.00">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <Label layoutX="207.0" layoutY="156.0" text="Monnaie:">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <TextField fx:id="monnaie" editable="false" layoutX="207.0" layoutY="176.0" prefHeight="25.0" prefWidth="217.0" promptText="0.00" style="-fx-background-color: black;">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </TextField>
+      <JFXButton layoutX="55.0" layoutY="252.0" onAction="#print_ok" prefHeight="51.0" prefWidth="122.0" style="-fx-background-color: white;" text="Valider et imprimer" textAlignment="CENTER" wrapText="true">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="44.0">
+               <image>
+                  <Image url="@icon/icons8_POS_Terminal_52px_1.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="185.0" layoutY="252.0" onAction="#valide" prefHeight="37.0" prefWidth="108.0" style="-fx-background-color: white;" text="Valider">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="44.0">
+               <image>
+                  <Image url="@icon/icons8_Checked_48px_1.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton layoutX="301.0" layoutY="252.0" onAction="#back" prefHeight="37.0" prefWidth="108.0" style="-fx-background-color: white;" text="Retour">
+         <graphic>
+            <ImageView fitHeight="43.0" fitWidth="44.0">
+               <image>
+                  <Image url="@icon/icons8_Cancel_48px.png" />
+               </image>
+            </ImageView>
+         </graphic>
+      </JFXButton>
+      <ImageView layoutX="182.0" layoutY="95.0">
+         <image>
+            <Image url="@icon/icons8_Cash_Register_50px_2.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>

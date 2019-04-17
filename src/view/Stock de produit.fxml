@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIconView?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane prefHeight="769.0" prefWidth="985.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.StockDeProduitController">
+   <children>
+      <TableView fx:id="stocksTab" layoutX="1.0" layoutY="127.0" prefHeight="548.0" prefWidth="1046.0" tableMenuButtonVisible="true" AnchorPane.bottomAnchor="94.0" AnchorPane.leftAnchor="1.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="127.0">
+         <columns>
+            <TableColumn fx:id="state" editable="false" prefWidth="75.0" text="Status" />
+            <TableColumn fx:id="code" prefWidth="75.0" text="Code produit" />
+            <TableColumn fx:id="desc" prefWidth="75.0" text="Description" />
+            <TableColumn fx:id="stock_init" prefWidth="75.0" text="stock initial" />
+            <TableColumn fx:id="stock_real" prefWidth="75.0" text="Stock reel" />
+            <TableColumn fx:id="pmp" prefWidth="75.0" text="Prix moyen Pondere" />
+            <TableColumn fx:id="val" prefWidth="75.0" text="Valeur" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy>
+      </TableView>
+      <AnchorPane layoutX="4.0" layoutY="-16.0" prefHeight="128.0" prefWidth="985.0" style="-fx-background-color: #0e407a;" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <JFXButton layoutX="868.0" layoutY="84.0" onAction="#export" style="-fx-background-color: #0e92d6;" text="Export excel" textFill="#dee9ee" underline="true" AnchorPane.rightAnchor="10.0">
+               <graphic>
+                  <FontAwesomeIconView fill="#dee9ee" glyphName="UPLOAD" size="20" />
+               </graphic>
+            </JFXButton>
+         </children></AnchorPane>
+      <Label layoutX="43.0" layoutY="24.0" text="Etat de stock" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="31.0" />
+         </font>
+      </Label>
+      <Label layoutX="43.0" layoutY="74.0" text="filtre article" textFill="#aeabab">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="filt" focusColor="#a5b0d0" layoutX="137.0" layoutY="66.0" onKeyReleased="#filtre" prefHeight="25.0" prefWidth="261.0" promptText="filtre soit par le nom ou le code du produit" style="-fx-background-color: #aeabab;" unFocusColor="#fffefe">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXTextField>
+      <JFXButton layoutX="871.0" layoutY="34.0" onAction="#refresh" style="-fx-background-color: #0e92d6;" text="ACTUALISER" textFill="#dee9ee" underline="true" AnchorPane.rightAnchor="10.0">
+         <graphic>
+            <FontAwesomeIconView fill="#dee9ee" glyphName="REFRESH" size="20" />
+         </graphic>
+      </JFXButton>
+      <AnchorPane layoutX="7.0" layoutY="600.0" prefHeight="94.0" prefWidth="985.0" style="-fx-background-color: #0e407a;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="2.0" AnchorPane.rightAnchor="0.0">
+         <children>
+            <Label layoutX="39.0" layoutY="30.0" prefHeight="37.0" prefWidth="211.0" text="Nombre d'articles:" textFill="#aea2f2">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="nbre" layoutX="266.0" layoutY="30.0" prefHeight="37.0" prefWidth="70.0" text="Label" textFill="#fcfcfc" underline="true">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="662.0" layoutY="49.0" prefHeight="37.0" prefWidth="194.0" text="Valeur du stock:" textFill="#aea2f2">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="valeur" layoutX="860.0" layoutY="49.0" prefHeight="37.0" prefWidth="112.0" text="Label" textFill="#e1e1e1">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label layoutX="734.0" layoutY="12.0" prefHeight="37.0" prefWidth="122.0" text="Quantite : " textFill="#aea2f2">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+            <Label fx:id="qty" layoutX="860.0" layoutY="12.0" prefHeight="37.0" prefWidth="112.0" text="Label" textFill="#e1e1e1">
+               <font>
+                  <Font name="System Bold" size="24.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</AnchorPane>

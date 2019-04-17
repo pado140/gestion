@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXPasswordField?>
+<?import com.jfoenix.controls.JFXTextField?>
+<?import javafx.scene.control.Hyperlink?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<AnchorPane id="AnchorPane" prefHeight="533.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controller.nouveau_userController">
+   <children>
+      <Pane prefHeight="85.0" prefWidth="600.0" style="-fx-background-color: #215488;">
+         <children>
+            <Label layoutX="75.0" layoutY="16.0" prefHeight="45.0" prefWidth="474.0" text="Enregistrer Nouveau Utilisateur" textFill="WHITE">
+               <font>
+                  <Font name="System Bold" size="30.0" />
+               </font>
+            </Label>
+         </children>
+      </Pane>
+      <Label layoutX="66.0" layoutY="132.0" prefHeight="25.0" prefWidth="86.0" text="Nom">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="175.0" prefHeight="25.0" prefWidth="86.0" text="Prenom">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="216.0" prefHeight="25.0" prefWidth="86.0" text="Sex">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="nom_field" layoutX="195.0" layoutY="128.0" prefHeight="25.0" prefWidth="149.0" />
+      <Pane layoutX="437.0" layoutY="89.0" prefHeight="136.0" prefWidth="149.0" style="-fx-border-width: 2px; -fx-border-color: #215488; -fx-border-radius: 10; -fx-background-radius: 10;">
+         <children>
+            <ImageView fx:id="image_pane" fitHeight="136.0" fitWidth="149.0" onMouseClicked="#load" pickOnBounds="true" preserveRatio="true" />
+         </children>
+      </Pane>
+      <Hyperlink fx:id="upload_link" layoutX="437.0" layoutY="227.0" onMouseClicked="#load" prefHeight="23.0" prefWidth="149.0" text="Upload a profil image" textAlignment="CENTER" />
+      <Hyperlink fx:id="remove_link" layoutX="437.0" layoutY="252.0" onMouseClicked="#remove" prefHeight="23.0" prefWidth="149.0" text="remove image" textAlignment="CENTER" />
+      <JFXButton fx:id="save_btn" layoutX="187.0" layoutY="480.0" onAction="#save" prefHeight="25.0" prefWidth="94.0" style="-fx-background-color: #215488; -fx-border-radius: 15; -fx-background-radius: 17; -fx-border-color: gray; -fx-border-width: 3;" text="Save" textFill="#f5f3f3">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <JFXButton fx:id="cancel_btn" layoutX="344.0" layoutY="480.0" onAction="#cancel" prefHeight="25.0" prefWidth="103.0" style="-fx-background-color: gray; -fx-border-color: #215488; -fx-border-width: 3; -fx-border-radius: 15; -fx-background-radius: 16;" text="Cancel" textFill="#f8f8f8">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </JFXButton>
+      <Label layoutX="66.0" layoutY="279.0" prefHeight="25.0" prefWidth="86.0" text="Username">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="322.0" prefHeight="25.0" prefWidth="86.0" text="Password">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="412.0" prefHeight="25.0" prefWidth="86.0" text="Tel">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <Label layoutX="66.0" layoutY="363.0" prefHeight="25.0" prefWidth="86.0" text="E-mail">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="username_field" layoutX="195.0" layoutY="275.0" prefHeight="25.0" prefWidth="149.0" />
+      <JFXPasswordField fx:id="password_field" layoutX="195.0" layoutY="320.0" prefHeight="25.0" prefWidth="149.0" />
+      <JFXTextField fx:id="mail_field" layoutX="195.0" layoutY="362.0" prefHeight="25.0" prefWidth="149.0" />
+      <JFXTextField fx:id="tel_field" layoutX="195.0" layoutY="411.0" prefHeight="25.0" prefWidth="149.0" />
+      <JFXTextField fx:id="prenom_field" layoutX="195.0" layoutY="172.0" prefHeight="25.0" prefWidth="149.0" />
+      <JFXComboBox fx:id="sex_field" editable="true" layoutX="195.0" layoutY="216.0" prefHeight="25.0" prefWidth="149.0" promptText="Select gender" />
+      <Label layoutX="66.0" layoutY="93.0" prefHeight="25.0" prefWidth="86.0" text="Code">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Label>
+      <JFXTextField fx:id="code_field" layoutX="195.0" layoutY="89.0" prefHeight="25.0" prefWidth="149.0" />
+   </children>
+</AnchorPane>
